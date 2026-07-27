@@ -1,48 +1,28 @@
 # bi-dashboard-frontend
+基于 Vue3 + TypeScript + Vite 开发的商业智能可视化看板前端项目
 
-This template should help get you started developing with Vue 3 in Vite.
+## 📌 项目介绍
+本项目是一套BI数据可视化仪表板，集成多种图表组件，展示业务统计数据，支持跨页面路由切换。
+技术栈：Vue3 + TypeScript + Vite + Element Plus + ECharts + Pinia
 
-## Recommended IDE Setup
+## ✨ 功能特性
+- 深色科技风格可视化仪表盘
+- 多类型统计图表（折线图、柱状图、饼图等）
+- 路由管理、组件化开发
+- 封装统一请求工具，支持接口数据获取
+- 适配浏览器路由，部署兼容 SPA 静态站点
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## 🛠 环境依赖
+- Node.js >= 18
+- npm / pnpm
 
-## Recommended Browser Setup
-
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
+## 🚀 本地运行
+```bash
+# 安装依赖
 npm install
-```
 
-### Compile and Hot-Reload for Development
-
-```sh
+# 启动开发服务
 npm run dev
-```
 
-### Type-Check, Compile and Minify for Production
-
-```sh
+# 打包构建
 npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
