@@ -5,7 +5,7 @@ const realTrend = Array.from({ length: 30 }, (_, i) => {
   const d = new Date(now.getTime() - (29 - i) * 86400000)
   return {
     date: d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()),
-    revenue: Math.round((Math.random() * 80000 + 60000) * 100) / 100,
+    amount: Math.round((Math.random() * 80000 + 60000) * 100) / 100,
     orders: Math.floor(Math.random() * 200 + 100),
   }
 })
