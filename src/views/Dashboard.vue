@@ -274,12 +274,12 @@ const loadOrderList = async () => {
 // 分页事件
 const handlePageChange = (newPage) => {
   page.value = newPage
-  getOrderList()
+  loadOrderList()
 }
 const handleSizeChange = (newSize) => {
   size.value = newSize
   page.value = 1
-  getOrderList()
+  loadOrderList()
 }
 
 // 窗口大小变化时，图表自适应
