@@ -7,7 +7,7 @@ async function query(q: ReturnType<typeof sql>) {
     const result = await q;
     return result;
   } catch (e: any) {
-    console.error('Neon query failed:', e?.message || e, e?.cause);
+    console.error('Neon query failed:', e?.message || e);
     throw e;
   }
 }
@@ -27,7 +27,10 @@ export async function getTodayOverview() {
 }
 
 export async function getTrend(days = 7) {
-  return query(sql`SELECT order_time::date AS date, COALESCE(SUM(total_price),0)::float AS amount FROM order_info WHERE order_time >= CURRENT_DATE - ${days}::int GROUP BY order_time::date ORDER BY date ASC`);
+  const d = new Date();
+  d.setDate(d.getDate() - days);
+  const since = d.toISOString().slice(0, 10);
+  return query(sql`SELECT order_time::date AS date, COALESCE(SUM(total_price),0)::float AS amount FROM order_info WHERE order_time >= ${since} GROUP BY order_time::date ORDER BY date ASC`);
 }
 
 export async function getProductRank(limit = 10) {
