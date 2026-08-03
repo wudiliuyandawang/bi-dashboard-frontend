@@ -9,7 +9,7 @@ const MYSQL = {
   database: "bi_dashboard",
 };
 
-const NEON_URL = process.env.POSTGRES_URL;
+const NEON_URL = process.env.POSTGRES_URL || (() => { try { const fs = require('fs'); const env = fs.readFileSync('.env.local', 'utf8'); const m = env.match(/POSTGRES_URL=(\S+)/); return m ? m[1] : null; } catch(e) { return null; } })();
 if (!NEON_URL) {
   console.error("POSTGRES_URL env var not set. Copy it from .env.local or Vercel dashboard.");
   process.exit(1);
