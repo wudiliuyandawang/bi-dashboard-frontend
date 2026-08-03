@@ -114,7 +114,7 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import * as echarts from 'echarts'
 import CountUp from 'vue-countup-v3'
-import request from '../utils/request'
+import { getTodayOverview, getTrend, getProductRank, getProvinceDistribution, getOrderList } from '../api/orders'
 import { ElMessage } from 'element-plus'
 
 // 响应式数据
@@ -132,19 +132,18 @@ const pieChartRef = ref(null)
 let trendChart, rankChart, pieChart
 
 // 1. 获取今日概览数据
-const getTodayOverview = async () => {
+const loadOverview = async () => {
   try {
-    const res = await request.get('/orders/today-overview')
-    overview.value = res
+    overview.value = await getTodayOverview()
   } catch (e) {
     ElMessage.error('今日概览数据加载失败')
   }
 }
 
 // 2. 获取近30天销售趋势（渐变折线图）
-const getTrendData = async () => {
+const loadTrend = async () => {
   try {
-    const res = await request.get('/orders/trend', { params: { days: 30 } })
+    const res = await getTrend(30)
     const dateList = res.map(item => item.date.slice(0, 10))
     const amountList = res.map(item => item.amount)
 
@@ -185,9 +184,9 @@ const getTrendData = async () => {
 }
 
 // 3. 获取商品销量排行榜（渐变柱状图）
-const getProductRank = async () => {
+const loadProductRank = async () => {
   try {
-    const res = await request.get('/orders/product-rank', { params: { limit: 10 } })
+    const res = await getProductRank(10)
     const nameList = res.map(item => item.product_name)
     const qtyList = res.map(item => item.total_quantity)
 
@@ -227,9 +226,9 @@ const getProductRank = async () => {
 }
 
 // 4. 获取用户地域分布（环形饼图）
-const getProvinceData = async () => {
+const loadProvince = async () => {
   try {
-    const res = await request.get('/orders/province-distribution')
+    const res = await getProvinceDistribution()
     
     pieChart.setOption({
       tooltip: { trigger: 'item', backgroundColor: 'rgba(0,0,0,0.7)', textStyle: { color: '#fff' } },
@@ -262,15 +261,9 @@ const getProvinceData = async () => {
 }
 
 // 5. 获取订单明细列表
-const getOrderList = async () => {
+const loadOrderList = async () => {
   try {
-    const res = await request.get('/orders/list', {
-      params: {
-        page: page.value,
-        size: size.value,
-        province: provinceFilter.value || undefined
-      }
-    })
+    const res = await getOrderList(page.value, size.value, provinceFilter.value || undefined)
     orderList.value = res.records
     total.value = res.total
   } catch (e) {
@@ -303,11 +296,11 @@ onMounted(() => {
   pieChart = echarts.init(pieChartRef.value)
 
   // 调用所有接口加载数据
-  getTodayOverview()
-  getTrendData()
-  getProductRank()
-  getProvinceData()
-  getOrderList()
+  loadOverview()
+  loadTrend()
+  loadProductRank()
+  loadProvince()
+  loadOrderList()
 
   // 监听窗口缩放
   window.addEventListener('resize', resizeCharts)
