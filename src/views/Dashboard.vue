@@ -75,7 +75,7 @@
             placeholder="输入省份筛选，如：广东"
             class="filter-input"
           />
-          <el-button type="primary" class="filter-btn" @click="getOrderList">查询</el-button>
+<el-button type="primary" class="filter-btn" @click="loadOrderList">查询</el-button>
           <div class="filter-tip">💡 支持按省份精准筛选订单数据</div>
         </div>
       </div>
