@@ -144,7 +144,7 @@ const loadOverview = async () => {
 const loadTrend = async () => {
   try {
     const res = await getTrend(30)
-    const dateList = res.map(item => item.date.slice(0, 10))
+    const dateList = res.map(item => item.date)
     const amountList = res.map(item => item.amount)
 
     trendChart.setOption({
